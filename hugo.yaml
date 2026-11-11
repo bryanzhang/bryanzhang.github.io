@@ -1,8 +1,8 @@
 baseURL: "https://bryanzhang.github.io/"
 title: "Bryanzhang's Notes"
 theme: PaperMod
-locale: zh-CN
 defaultContentLanguage: zh
+defaultContentLanguageInSubdir: false
 hasCJKLanguage: true
 enableRobotsTXT: true
 buildDrafts: false
@@ -17,7 +17,6 @@ minify:
 
 params:
   env: production
-  description: "搜索推荐工程 / AI Infra。只写带数据的东西。"
   author: Dennis
   defaultTheme: auto
   disableThemeToggle: false
@@ -29,19 +28,15 @@ params:
   ShowWordCount: true
   ShowRssButtonInSectionTermList: true
   ShowToc: true
+  displayFullLangName: true
   TocOpen: false
   math: true
   comments: true
-  homeInfoParams:
-    Title: "Bryanzhang's Notes"
-    Content: >
-      15 年搜索推荐工程与 AI Infra。
-      这里只写带数据和可复现命令的东西：推理引擎、调度、KV cache、性能分析。
   socialIcons:
     - name: github
       url: "https://github.com/bryanzhang"
     - name: linkedin
-      url: "https://www.linkedin.com/in/"
+      url: "https://www.linkedin.com/in/junhao-zhang-0b892436/"
     - name: rss
       url: "index.xml"
   assets:
@@ -63,28 +58,43 @@ taxonomies:
   tag: tags
   series: series
 
-menu:
-  main:
-    - identifier: posts
-      name: 文章
-      url: /posts/
-      weight: 10
-    - identifier: series
-      name: 系列
-      url: /series/
-      weight: 15
-    - identifier: tags
-      name: 标签
-      url: /tags/
-      weight: 20
-    - identifier: search
-      name: 搜索
-      url: /search/
-      weight: 30
-    - identifier: about
-      name: 关于
-      url: /about/
-      weight: 40
+languages:
+  zh:
+    label: 中文
+    locale: zh-CN
+    weight: 1
+    params:
+      description: "搜索推荐工程 / AI Infra。只写带数据的东西。"
+      homeInfoParams:
+        Title: "Bryanzhang's Notes"
+        Content: >
+          15 年搜索推荐工程与 AI Infra。
+          这里只写带数据和可复现命令的东西：推理引擎、调度、KV cache、性能分析。
+    menus:
+      main:
+        - { identifier: posts, name: 文章, url: /posts/, weight: 10 }
+        - { identifier: series, name: 系列, url: /series/, weight: 15 }
+        - { identifier: tags, name: 标签, url: /tags/, weight: 20 }
+        - { identifier: search, name: 搜索, url: /search/, weight: 30 }
+        - { identifier: about, name: 关于, url: /about/, weight: 40 }
+  en:
+    label: English
+    locale: en-US
+    weight: 2
+    params:
+      description: "Search/recsys engineering and AI infra. Only posts with data."
+      homeInfoParams:
+        Title: "Bryanzhang's Notes"
+        Content: >
+          15 years in search/recommendation engineering and AI infrastructure.
+          Only posts with data and reproducible commands: inference engines, scheduling, KV cache, performance.
+    menus:
+      main:
+        - { identifier: posts, name: Posts, url: /en/posts/, weight: 10 }
+        - { identifier: series, name: Series, url: /en/series/, weight: 15 }
+        - { identifier: tags, name: Tags, url: /en/tags/, weight: 20 }
+        - { identifier: search, name: Search, url: /en/search/, weight: 30 }
+        - { identifier: about, name: About, url: /en/about/, weight: 40 }
 
 outputs:
   home:

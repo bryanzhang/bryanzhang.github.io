@@ -4,14 +4,14 @@
 {{- if not .Date.IsZero -}}
     {{- $dateHtml := printf "<span title='%s'>%s</span>" (.Date | time.Format "2006-01-02T15:04:05-07:00") (.Date | time.Format $fmt) }}
     {{- with .Params.original }}
-        {{- $dateHtml = printf "<span title='原发表时间'>%s 原发于%s</span>" ($.Date | time.Format $fmt) (default "豆瓣" .platform) }}
+        {{- $platform := default (i18n "default_platform") .platform }}
+        {{- $dateHtml = printf "<span>%s</span>" (i18n "originally_published" (dict "Date" ($.Date | time.Format $fmt) "Platform" $platform)) }}
     {{- end }}
     {{- $meta = $meta | append $dateHtml }}
 {{- end }}
 
 {{- with .Params.migrated }}
-    {{- $t := time.AsTime . }}
-    {{- $meta = $meta | append (printf "<span title='迁移时间'>%s 迁移至此</span>" ($t | time.Format $fmt)) }}
+    {{- $meta = $meta | append (printf "<span>%s</span>" (i18n "migrated_here" (dict "Date" (time.AsTime . | time.Format $fmt)))) }}
 {{- end }}
 
 {{- if (.Param "ShowReadingTime") -}}

@@ -1,0 +1,18 @@
+- id: originally_published
+  translation: "{{ .Date }} 原发于{{ .Platform }}"
+- id: migrated_here
+  translation: "{{ .Date }} 迁移至此"
+- id: source_intro
+  translation: "本文原发于{{ .Platform }}（{{ .Date }}）"
+- id: source_original
+  translation: "，原文："
+- id: source_migrated
+  translation: "；{{ .Date }} 迁移至此"
+- id: sentence_sep
+  translation: "。"
+- id: default_platform
+  translation: "豆瓣"
+- id: series_label
+  translation: "系列："
+- id: series_count
+  translation: "（共 {{ .Count }} 篇）"

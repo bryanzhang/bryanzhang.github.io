@@ -7,7 +7,7 @@
 {{- $n := len $items }}
 {{- if gt $n 1 }}
 <div class="series-nav">
-  <div class="series-nav-title">系列：<a href="{{ $term.RelPermalink }}">{{ $name }}</a>（共 {{ $n }} 篇）</div>
+  <div class="series-nav-title">{{ i18n "series_label" }}<a href="{{ $term.RelPermalink }}">{{ $name }}</a>{{ i18n "series_count" (dict "Count" $n) }}</div>
   <ol>
   {{- range $i, $p := $items }}
     <li{{ if eq $p.RelPermalink $page.RelPermalink }} class="current"{{ end }}>

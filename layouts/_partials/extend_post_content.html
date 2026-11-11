@@ -1,10 +1,11 @@
 {{- with .Params.original }}
 {{- $fmt := default ":date_long" site.Params.DateFormat }}
+{{- $platform := default (i18n "default_platform") .platform }}
 <div class="migrated-note">
-  本文原发于{{ default "豆瓣" .platform }}（{{ $.Date | time.Format $fmt }}）
-  {{- with .url }}，原文：<a href="{{ . }}" target="_blank" rel="noopener">{{ . }}</a>{{ end }}
-  {{- with $.Params.migrated }}；{{ time.AsTime . | time.Format $fmt }} 迁移至此{{ end }}
-  {{- with .note }}。{{ . }}{{ end }}
+  {{ i18n "source_intro" (dict "Platform" $platform "Date" ($.Date | time.Format $fmt)) }}
+  {{- with .url }}{{ i18n "source_original" }}<a href="{{ . }}" target="_blank" rel="noopener">{{ . }}</a>{{ end }}
+  {{- with $.Params.migrated }}{{ i18n "source_migrated" (dict "Date" (time.AsTime . | time.Format $fmt)) }}{{ end }}
+  {{- with .note }}{{ i18n "sentence_sep" }}{{ . }}{{ end }}
 </div>
 <style>
 .migrated-note { margin: 28px 0 8px; padding: 10px 14px; border-left: 3px solid var(--border); background: var(--code-bg); color: var(--secondary); font-size: 14px; line-height: 1.6; }

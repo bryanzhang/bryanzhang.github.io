@@ -1,0 +1,18 @@
+- id: originally_published
+  translation: "Originally published on {{ .Platform }}, {{ .Date }}"
+- id: migrated_here
+  translation: "migrated {{ .Date }}"
+- id: source_intro
+  translation: "Originally published on {{ .Platform }} ({{ .Date }})"
+- id: source_original
+  translation: ". Original: "
+- id: source_migrated
+  translation: "; migrated here on {{ .Date }}"
+- id: sentence_sep
+  translation: ". "
+- id: default_platform
+  translation: "Douban"
+- id: series_label
+  translation: "Series: "
+- id: series_count
+  translation: " ({{ .Count }} posts)"
