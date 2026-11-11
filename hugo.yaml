@@ -1,5 +1,5 @@
 baseURL: "https://bryanzhang.github.io/"
-title: "Dennis's Notes"
+title: "Bryanzhang's Notes"
 theme: PaperMod
 languageCode: zh-cn
 defaultContentLanguage: zh
@@ -33,9 +33,9 @@ params:
   math: true
   comments: true
   homeInfoParams:
-    Title: "Dennis"
+    Title: "Bryanzhang's Notes"
     Content: >
-      15 年搜索推荐工程与 AI Infra。美团搜索总架构师出身，近两年做大规模稀疏模型训练与在线推理系统优化。
+      15 年搜索推荐工程与 AI Infra。
       这里只写带数据和可复现命令的东西：推理引擎、调度、KV cache、性能分析。
   socialIcons:
     - name: github
