@@ -1,7 +1,7 @@
 baseURL: "https://bryanzhang.github.io/"
 title: "Bryanzhang's Notes"
 theme: PaperMod
-languageCode: zh-cn
+locale: zh-CN
 defaultContentLanguage: zh
 hasCJKLanguage: true
 enableRobotsTXT: true
