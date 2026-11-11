@@ -1,0 +1,104 @@
+baseURL: "https://bryanzhang.github.io/"
+title: "Dennis's Notes"
+theme: PaperMod
+languageCode: zh-cn
+defaultContentLanguage: zh
+hasCJKLanguage: true
+enableRobotsTXT: true
+buildDrafts: false
+buildFuture: false
+buildExpired: false
+pagination:
+  pagerSize: 10
+
+minify:
+  disableXML: true
+  minifyOutput: true
+
+params:
+  env: production
+  description: "搜索推荐工程 / AI Infra。只写带数据的东西。"
+  author: Dennis
+  defaultTheme: auto
+  disableThemeToggle: false
+  ShowReadingTime: true
+  ShowShareButtons: false
+  ShowPostNavLinks: true
+  ShowBreadCrumbs: true
+  ShowCodeCopyButtons: true
+  ShowWordCount: true
+  ShowRssButtonInSectionTermList: true
+  ShowToc: true
+  TocOpen: false
+  math: true
+  comments: true
+  homeInfoParams:
+    Title: "Dennis"
+    Content: >
+      15 年搜索推荐工程与 AI Infra。美团搜索总架构师出身，近两年做大规模稀疏模型训练与在线推理系统优化。
+      这里只写带数据和可复现命令的东西：推理引擎、调度、KV cache、性能分析。
+  socialIcons:
+    - name: github
+      url: "https://github.com/bryanzhang"
+    - name: linkedin
+      url: "https://www.linkedin.com/in/"
+    - name: rss
+      url: "index.xml"
+  assets:
+    disableHLJS: true
+  editPost:
+    URL: "https://github.com/bryanzhang/bryanzhang.github.io/tree/main/content"
+    Text: "Suggest changes"
+    appendFilePath: true
+  fuseOpts:
+    isCaseSensitive: false
+    shouldSort: true
+    location: 0
+    distance: 1000
+    threshold: 0.4
+    minMatchCharLength: 0
+    keys: ["title", "permalink", "summary", "content"]
+
+menu:
+  main:
+    - identifier: posts
+      name: 文章
+      url: /posts/
+      weight: 10
+    - identifier: tags
+      name: 标签
+      url: /tags/
+      weight: 20
+    - identifier: search
+      name: 搜索
+      url: /search/
+      weight: 30
+    - identifier: about
+      name: 关于
+      url: /about/
+      weight: 40
+
+outputs:
+  home:
+    - HTML
+    - RSS
+    - JSON
+
+markup:
+  highlight:
+    codeFences: true
+    guessSyntax: true
+    lineNos: true
+    noClasses: false
+    style: github
+  goldmark:
+    renderer:
+      unsafe: true
+    extensions:
+      passthrough:
+        enable: true
+        delimiters:
+          block:
+            - ["$$", "$$"]
+          inline:
+            - ["$", "$"]

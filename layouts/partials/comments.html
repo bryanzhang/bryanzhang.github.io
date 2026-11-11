@@ -1,0 +1,26 @@
+{{/*
+  giscus 评论。启用步骤：
+  1. 仓库 Settings → General → Features 勾选 Discussions
+  2. 安装 giscus app: https://github.com/apps/giscus
+  3. 打开 https://giscus.app 填仓库名，复制生成的 data-repo-id / data-category-id 替换下面两处
+  未替换前这段不会渲染。
+*/}}
+{{ $repoID := "REPLACE_WITH_REPO_ID" }}
+{{ $categoryID := "REPLACE_WITH_CATEGORY_ID" }}
+{{ if and (ne $repoID "REPLACE_WITH_REPO_ID") (ne $categoryID "REPLACE_WITH_CATEGORY_ID") }}
+<script src="https://giscus.app/client.js"
+        data-repo="bryanzhang/bryanzhang.github.io"
+        data-repo-id="{{ $repoID }}"
+        data-category="General"
+        data-category-id="{{ $categoryID }}"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="top"
+        data-theme="preferred_color_scheme"
+        data-lang="zh-CN"
+        crossorigin="anonymous"
+        async>
+</script>
+{{ end }}
