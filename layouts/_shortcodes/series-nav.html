@@ -1,0 +1,30 @@
+{{- $page := .Page }}
+{{- $terms := $page.GetTerms "series" }}
+{{- with $terms }}
+{{- $term := index . 0 }}
+{{- $name := $term.Title }}
+{{- $items := $term.Pages.ByDate }}
+{{- $n := len $items }}
+{{- if gt $n 1 }}
+<div class="series-nav">
+  <div class="series-nav-title">系列：<a href="{{ $term.RelPermalink }}">{{ $name }}</a>（共 {{ $n }} 篇）</div>
+  <ol>
+  {{- range $i, $p := $items }}
+    <li{{ if eq $p.RelPermalink $page.RelPermalink }} class="current"{{ end }}>
+      {{- if eq $p.RelPermalink $page.RelPermalink }}{{ $p.Title }}{{ else }}<a href="{{ $p.RelPermalink }}">{{ $p.Title }}</a>{{ end }}
+      <span class="series-date">{{ $p.Date | time.Format "2006-01" }}</span>
+    </li>
+  {{- end }}
+  </ol>
+</div>
+<style>
+.series-nav { margin: 0 0 24px; padding: 12px 16px; border: 1px solid var(--border); border-radius: var(--radius); background: var(--code-bg); font-size: 14px; }
+.series-nav-title { font-weight: 600; margin-bottom: 6px; }
+.series-nav ol { margin: 0; padding-left: 22px; }
+.series-nav li { margin: 2px 0; }
+.series-nav li.current { font-weight: 600; }
+.series-nav .series-date { color: var(--secondary); font-size: 12px; margin-left: 6px; }
+.series-nav a { color: var(--primary); }
+</style>
+{{- end }}
+{{- end }}
