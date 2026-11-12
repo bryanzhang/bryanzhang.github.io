@@ -32,7 +32,7 @@ math: true
 ```bash
 # SGLang
 python -m sglang.launch_server --model-path Qwen/Qwen2.5-7B-Instruct --port 30000
-python -m sglang.bench_serving --backend sglang --port 30000 \
+python -m sglang.benchmark.serving --backend sglang --port 30000 \
   --dataset-name random --random-input-len 1024 --random-output-len 256 \
   --num-prompts 256 --max-concurrency 32
 
