@@ -80,7 +80,13 @@ while i < len(lines):
     i += 1
     while i < len(lines) and lines[i].strip() and not re.match(r"^(```|!\[|#|>|\d+\.\s|- )", lines[i]):
         buf.append(lines[i]); i += 1
-    out.append("<p>" + inline(" ".join(buf)) + "</p>")
+    joined = buf[0]
+    for nxt in buf[1:]:
+        # 中文行之间直接拼接，避免出现多余空格
+        cjk = lambda ch: "\u3000" <= ch <= "\u9fff" or "\uff00" <= ch <= "\uffef"
+        sep = "" if (joined and nxt and (cjk(joined[-1]) or cjk(nxt[0]))) else " "
+        joined += sep + nxt
+    out.append("<p>" + inline(joined) + "</p>")
 
 out.append(f'<p>原文发布于 <a href="{post_url}">{post_url}</a>，以此为准。</p>')
 sys.stdout.write(f"<!-- title: {title} -->\n" + "\n".join(out) + "\n")
