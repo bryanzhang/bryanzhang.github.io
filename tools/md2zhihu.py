@@ -11,6 +11,7 @@ import html
 import re
 import sys
 from pathlib import Path
+from urllib.parse import quote
 
 base = "https://bryanzhang.github.io"
 args = [a for a in sys.argv[1:]]
@@ -24,10 +25,18 @@ slug = Path(args[0]).stem
 post_url = f"{base}/posts/{slug}/"
 
 body = re.sub(r"\{\{<.*?>\}\}", "", body)
+math = re.search(r"^math:\s*true\s*$", fm, re.M) is not None
+
+
+def tex_img(tex):
+    # Zhihu renders formulas as images from its equation service; the editor keeps them as formulas on paste.
+    return f'<img eeimg="1" src="https://www.zhihu.com/equation?tex={quote(tex)}" alt="{html.escape(tex)}">'
 
 
 def inline(t):
     t = html.escape(t, quote=False)
+    if math:
+        t = re.sub(r"\$([^$\n]+?)\$", lambda m: tex_img(html.unescape(m.group(1))), t)
     t = re.sub(r"&lt;(https?://[^&]+)&gt;", r'<a href="\1">\1</a>', t)
     t = re.sub(r"\[([^\]]+)\]\(([^)]+)\)", lambda m: f'<a href="{abs_url(m.group(2))}">{m.group(1)}</a>', t)
     t = re.sub(r"\*\*(.+?)\*\*", r"<b>\1</b>", t)
@@ -51,6 +60,24 @@ while i < len(lines):
             buf.append(lines[j]); j += 1
         out.append("<pre>" + html.escape("\n".join(buf)) + "</pre>")
         i = j + 1; continue
+    if math and ln.strip() == "$$":
+        j = i + 1
+        buf = []
+        while j < len(lines) and lines[j].strip() != "$$":
+            buf.append(lines[j].strip()); j += 1
+        out.append("<p>" + tex_img(" ".join(buf)) + "</p>")
+        i = j + 1; continue
+    if ln.startswith("|") and i + 1 < len(lines) and re.match(r"^\|?\s*:?-{3,}", lines[i + 1]):
+        cells = lambda row: [c.strip() for c in row.strip().strip("|").split("|")]
+        head = cells(ln)
+        rows = []
+        i += 2
+        while i < len(lines) and lines[i].startswith("|"):
+            rows.append(cells(lines[i])); i += 1
+        thead = "<tr>" + "".join(f"<th>{inline(c)}</th>" for c in head) + "</tr>"
+        tbody = "".join("<tr>" + "".join(f"<td>{inline(c)}</td>" for c in r) + "</tr>" for r in rows)
+        out.append(f"<table><thead>{thead}</thead><tbody>{tbody}</tbody></table>")
+        continue
     m = re.match(r"^!\[([^\]]*)\]\(([^)]+)\)\s*$", ln)
     if m:
         out.append(f'<p><img src="{abs_url(m.group(2))}" alt="{html.escape(m.group(1))}"></p>')
