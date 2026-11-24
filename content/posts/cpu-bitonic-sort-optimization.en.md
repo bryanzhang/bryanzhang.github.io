@@ -1,15 +1,21 @@
 ---
-title: "Optimizing Bitonic Sort on the CPU: 6× Faster than std::sort"
+title: "Hand-Writing Bitonic Sort on the CPU (Corrected and Re-measured in 2026)"
 date: 2024-08-28
 migrated: 2026-11-11
 original:
   platform: Douban
   url: "https://www.douban.com/note/865510242/"
-  note: "English translation of the Chinese original."
+  note: "English translation of the Chinese original. A correction was added at the top on November 24, 2026."
 draft: false
 tags: ["SIMD", "Sorting", "Performance", "CPU"]
-summary: "A hand-written bitonic sort with sorting networks, SSE/AVX and in-register sort: n=8192 goes from 158 ms to 0.0075 ms, 6× faster than std::sort."
+summary: "Notes from hand-writing a bitonic sort with sorting networks, SSE/AVX and in-register sorting. Corrected in November 2026: the original code never checked its output, so the claim of being 6× faster than std::sort is retracted; after fixing every version and verifying every output, version 8 sorts 8,192 ints about 15× faster than std::sort on a Xeon 6982P-C."
 ---
+
+> **Correction (November 24, 2026):** the claim in this post that the code is 6× faster than std::sort is retracted. The original code never checked its output. With an element-wise check against std::sort, every version from version 2 (the non-recursive one) onward failed to sort; the later versions were fast because most of the comparisons never ran. The bugs: the merge loop processed only the first block at each level; every version skipped its last few merge levels; versions 7 and 8 skipped several merge stages while building the bitonic sequence; and version 8's 8×8 in-register sorting network and transpose were themselves wrong.
+>
+> All versions are now fixed, and every sort is checked element-wise against std::sort. Re-measured on an Alibaba Cloud Xeon 6982P-C (AVX-512): versions 1–6 are all slower than std::sort, because two qsort calls take most of the time; version 7 takes 0.0215 ms and version 8 0.0203 ms, about 14–15× faster than std::sort at 0.304 ms. For reference, Intel's x86-simd-sort takes 0.0162 ms with AVX-512. Full data and fixes are on [GitHub](https://github.com/bryanzhang/cpu_bitonicsort).
+>
+> The original 2024 post follows unchanged, for reference; its timings are no longer valid.
 
 The appeal of bitonic sort is that it is a pure sorting network: its running time is stable, it can be made branch-free with SIMD and CPU shuffle instructions, and it sorts in place with no extra memory. Most parallel sorting algorithms I've read use bitonic sort either entirely or in part, and I'd long wanted to implement one myself.
 
