@@ -183,6 +183,6 @@ Nsight Systems 识别出的库内核是 `volta_sgemm_128x64_nn`，其 100 次 ke
 
 关于矩阵乘法优化的知识参考：
 
-<https://www.douban.com/note/849253271>
+[Fast implementation of DGEMM on Fermi GPU 论文笔记](/notes/dgemm-fermi/)
 
 <https://zhuanlan.zhihu.com/p/478846788>

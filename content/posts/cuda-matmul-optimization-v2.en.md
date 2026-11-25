@@ -183,6 +183,6 @@ Scope: Tesla T4 (SM 7.5), fixed and evenly divisible matrix sizes, FP32 CUDA cor
 
 On matrix multiplication optimization:
 
-<https://www.douban.com/note/849253271>
+[Notes on "Fast implementation of DGEMM on Fermi GPU"](/notes/dgemm-fermi/) (in Chinese)
 
 <https://zhuanlan.zhihu.com/p/478846788>

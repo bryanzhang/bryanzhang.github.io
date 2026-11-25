@@ -1,0 +1,10 @@
+{{- /* Compact one-line-per-note list. Context: a page collection. */ -}}
+<ul class="notes-list">
+  {{- range .ByDate.Reverse }}
+  <li>
+    <a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a>
+    {{- range (.GetTerms "tags") }}{{ if in (slice "源码阅读") .LinkTitle }}<span class="notes-badge">{{ .LinkTitle }}</span>{{ end }}{{ end }}
+    <time datetime="{{ .Date | time.Format "2006-01-02" }}">{{ .Date | time.Format "2006-01" }}</time>
+  </li>
+  {{- end }}
+</ul>

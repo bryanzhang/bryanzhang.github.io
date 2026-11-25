@@ -14,6 +14,10 @@
     {{- $meta = $meta | append (printf "<span>%s</span>" (i18n "migrated_here" (dict "Date" (time.AsTime . | time.Format $fmt)))) }}
 {{- end }}
 
+{{- range (.GetTerms "topics") }}
+    {{- $meta = $meta | append (printf "<span>主题：<a href=\"%s\">%s</a></span>" .RelPermalink .LinkTitle) }}
+{{- end }}
+
 {{- if (.Param "ShowReadingTime") -}}
     {{- $meta = $meta | append (printf "<span>%s</span>" (i18n "read_time" .ReadingTime | default (printf "%d min" .ReadingTime))) }}
 {{- end }}

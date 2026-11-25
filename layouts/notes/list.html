@@ -1,0 +1,45 @@
+{{- define "main" }}
+{{ partial "notes_style.html" . }}
+<header class="page-header">
+  {{- partial "breadcrumbs.html" . }}
+  <h1>{{ .Title }}</h1>
+  {{- with .Description }}
+  <div class="post-description">{{ . | markdownify }}</div>
+  {{- end }}
+</header>
+
+{{- $pages := .RegularPages }}
+{{- $order := site.Params.notesTopics }}
+{{- $other := $pages }}
+{{- range $order }}
+{{- $other = $other | complement (where $pages "Params.topics" "intersect" (slice .)) }}
+{{- end }}
+
+<nav class="notes-toc">
+  {{- range $order }}
+  {{- $n := len (where $pages "Params.topics" "intersect" (slice .)) }}
+  {{- if $n }}<a href="#{{ anchorize . }}">{{ . }}（{{ $n }}）</a>{{ end }}
+  {{- end }}
+  {{- with $other }}<a href="#other">其他（{{ len . }}）</a>{{ end }}
+</nav>
+
+{{- range $order }}
+{{- $t := . }}
+{{- with where $pages "Params.topics" "intersect" (slice $t) }}
+<section class="notes-group">
+  <h2 id="{{ anchorize $t }}">
+    {{- with site.GetPage (printf "/topics/%s" (lower (replace $t " " "-"))) }}<a href="{{ .RelPermalink }}">{{ $t }}</a>{{ else }}{{ $t }}{{ end -}}
+    <span class="cnt">{{ len . }} 篇</span>
+  </h2>
+  {{ partial "notes_compact_list.html" . }}
+</section>
+{{- end }}
+{{- end }}
+
+{{- with $other }}
+<section class="notes-group">
+  <h2 id="other">其他<span class="cnt">{{ len . }} 篇</span></h2>
+  {{ partial "notes_compact_list.html" . }}
+</section>
+{{- end }}
+{{- end }}

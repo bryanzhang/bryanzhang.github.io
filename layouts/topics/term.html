@@ -1,0 +1,11 @@
+{{- define "main" }}
+{{ partial "notes_style.html" . }}
+<header class="page-header">
+  {{- partial "breadcrumbs.html" . }}
+  <h1>{{ .Title }}</h1>
+  <div class="post-description">笔记 · {{ len .Pages }} 篇 · <a href="{{ (site.GetPage "/notes").RelPermalink }}">全部笔记</a></div>
+</header>
+<section class="notes-group">
+  {{ partial "notes_compact_list.html" .Pages }}
+</section>
+{{- end }}

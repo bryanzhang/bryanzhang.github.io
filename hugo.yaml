@@ -17,6 +17,8 @@ minify:
 
 params:
   env: production
+  mainSections: ["posts"]
+  notesTopics: ["LLM 推理", "训练与分布式", "搜索推荐与检索", "系统与性能", "模型与算法"]
   author: Dennis
   defaultTheme: auto
   disableThemeToggle: false
@@ -57,6 +59,7 @@ params:
 taxonomies:
   tag: tags
   series: series
+  topic: topics
 
 languages:
   zh:
@@ -64,15 +67,17 @@ languages:
     locale: zh-CN
     weight: 1
     params:
-      description: "搜索推荐工程 / AI Infra。只写带数据的东西。"
+      description: "搜索推荐工程 / AI Infra。实践只写带数据的东西，笔记记录日常阅读。"
       homeInfoParams:
         Title: "Bryanzhang's Notes"
         Content: >
           15 年搜索推荐工程与 AI Infra。
-          这里只写带数据和可复现命令的东西：推理引擎、调度、KV cache、性能分析。
+          “实践”只写带数据和可复现命令的东西：推理引擎、调度、KV cache、性能分析；
+          “笔记”是 2019 年以来读论文、读源码的笔记。
     menus:
       main:
-        - { identifier: posts, name: 文章, url: /posts/, weight: 10 }
+        - { identifier: posts, name: 实践, url: /posts/, weight: 10 }
+        - { identifier: notes, name: 笔记, url: /notes/, weight: 12 }
         - { identifier: series, name: 系列, url: /series/, weight: 15 }
         - { identifier: tags, name: 标签, url: /tags/, weight: 20 }
         - { identifier: search, name: 搜索, url: /search/, weight: 30 }

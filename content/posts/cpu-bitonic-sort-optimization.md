@@ -19,7 +19,7 @@ summary: "用排序网络 + SSE/AVX + in-register sort 手写双调排序。2026
 
 双调排序的优点是纯粹通过排序网络实现，耗时稳定，利用 SIMD 和 CPU 洗牌指令，可以做到没有分支判断，而且是 in-place sorting，没有额外空间。之前看大部分的并行排序算法要么全部使用双调排序，要么部分采用，一直手痒着想实现一遍。
 
-其中 in-register sort 的优化参考了论文：<https://www.vldb.org/pvldb/vol1/1454171.pdf>（我的笔记见：<https://www.douban.com/note/864782124/>）
+其中 in-register sort 的优化参考了论文：<https://www.vldb.org/pvldb/vol1/1454171.pdf>（我的笔记见：[SIMD 多核排序论文笔记](/notes/simd-sort-multicore/)）
 
 手写一遍：<https://github.com/bryanzhang/cpu_bitonicsort>。
 

@@ -19,7 +19,7 @@ summary: "Notes from hand-writing a bitonic sort with sorting networks, SSE/AVX 
 
 The appeal of bitonic sort is that it is a pure sorting network: its running time is stable, it can be made branch-free with SIMD and CPU shuffle instructions, and it sorts in place with no extra memory. Most parallel sorting algorithms I've read use bitonic sort either entirely or in part, and I'd long wanted to implement one myself.
 
-The in-register sort optimization follows this paper: <https://www.vldb.org/pvldb/vol1/1454171.pdf> (my notes, in Chinese: <https://www.douban.com/note/864782124/>).
+The in-register sort optimization follows this paper: <https://www.vldb.org/pvldb/vol1/1454171.pdf> (my notes, in Chinese: [paper notes](/notes/simd-sort-multicore/)).
 
 Hand-written implementation: <https://github.com/bryanzhang/cpu_bitonicsort>.
 
