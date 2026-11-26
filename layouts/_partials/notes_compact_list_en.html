@@ -1,0 +1,15 @@
+{{- /* English index of the Chinese notes. Context: a page collection from the zh site. */ -}}
+<ul class="notes-list notes-list-en">
+  {{- range .ByDate.Reverse }}
+  {{- $p := . }}
+  {{- $d := index hugo.Data.notes_en.notes $p.File.ContentBaseName }}
+  <li>
+    <div class="notes-en-main">
+      <a href="{{ $p.RelPermalink }}" hreflang="zh">{{ if $d }}{{ $d.title }}{{ else }}{{ $p.LinkTitle }}{{ end }}</a>
+      <span class="notes-badge">in Chinese</span>
+      {{- if $d }}<div class="notes-en-summary">{{ $d.summary }}</div>{{ end }}
+    </div>
+    <time datetime="{{ $p.Date | time.Format "2006-01-02" }}">{{ $p.Date | time.Format "Jan 2006" }}</time>
+  </li>
+  {{- end }}
+</ul>

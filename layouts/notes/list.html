@@ -8,8 +8,14 @@
   {{- end }}
 </header>
 
+{{- /* The notes exist only in Chinese; the English page lists the Chinese ones with English titles from data/notes_en.yaml. */}}
+{{- $en := ne site.Language.Lang "zh" }}
 {{- $pages := .RegularPages }}
-{{- $order := site.Params.notesTopics }}
+{{- if $en }}
+{{- range hugo.Sites }}{{ if eq .Language.Lang "zh" }}{{ $pages = where .RegularPages "Section" "notes" }}{{ end }}{{ end }}
+{{- end }}
+{{- $order := site.Params.notesTopics | default (index hugo.Sites 0).Params.notesTopics }}
+{{- $names := hugo.Data.notes_en.topics }}
 {{- $other := $pages }}
 {{- range $order }}
 {{- $other = $other | complement (where $pages "Params.topics" "intersect" (slice .)) }}
@@ -17,29 +23,31 @@
 
 <nav class="notes-toc">
   {{- range $order }}
+  {{- $label := cond $en (index $names .) . }}
   {{- $n := len (where $pages "Params.topics" "intersect" (slice .)) }}
-  {{- if $n }}<a href="#{{ anchorize . }}">{{ . }}（{{ $n }}）</a>{{ end }}
+  {{- if $n }}<a href="#{{ anchorize $label }}">{{ $label }}{{ if $en }} ({{ $n }}){{ else }}（{{ $n }}）{{ end }}</a>{{ end }}
   {{- end }}
-  {{- with $other }}<a href="#other">其他（{{ len . }}）</a>{{ end }}
+  {{- with $other }}<a href="#other">{{ cond $en "Other" "其他" }}（{{ len . }}）</a>{{ end }}
 </nav>
 
 {{- range $order }}
 {{- $t := . }}
+{{- $label := cond $en (index $names $t) $t }}
 {{- with where $pages "Params.topics" "intersect" (slice $t) }}
 <section class="notes-group">
-  <h2 id="{{ anchorize $t }}">
-    {{- with site.GetPage (printf "/topics/%s" (lower (replace $t " " "-"))) }}<a href="{{ .RelPermalink }}">{{ $t }}</a>{{ else }}{{ $t }}{{ end -}}
-    <span class="cnt">{{ len . }} 篇</span>
+  <h2 id="{{ anchorize $label }}">
+    {{- if $en }}{{ $label }}{{ else }}{{ with site.GetPage (printf "/topics/%s" (lower (replace $t " " "-"))) }}<a href="{{ .RelPermalink }}">{{ $t }}</a>{{ else }}{{ $t }}{{ end }}{{ end -}}
+    <span class="cnt">{{ len . }}{{ if not $en }} 篇{{ end }}</span>
   </h2>
-  {{ partial "notes_compact_list.html" . }}
+  {{- if $en }}{{ partial "notes_compact_list_en.html" . }}{{ else }}{{ partial "notes_compact_list.html" . }}{{ end }}
 </section>
 {{- end }}
 {{- end }}
 
 {{- with $other }}
 <section class="notes-group">
-  <h2 id="other">其他<span class="cnt">{{ len . }} 篇</span></h2>
-  {{ partial "notes_compact_list.html" . }}
+  <h2 id="other">{{ cond $en "Other" "其他" }}<span class="cnt">{{ len . }}</span></h2>
+  {{- if $en }}{{ partial "notes_compact_list_en.html" . }}{{ else }}{{ partial "notes_compact_list.html" . }}{{ end }}
 </section>
 {{- end }}
 {{- end }}

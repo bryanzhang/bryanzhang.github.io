@@ -92,10 +92,12 @@ languages:
         Title: "Bryanzhang's Notes"
         Content: >
           15 years in search/recommendation engineering and AI infrastructure.
-          Only posts with data and reproducible commands: inference engines, scheduling, KV cache, performance.
+          Posts only cover work with data and reproducible commands: inference engines, scheduling, KV cache, performance.
+          Notes are my reading notes on papers and source code since 2019 (in Chinese).
     menus:
       main:
         - { identifier: posts, name: Posts, url: /en/posts/, weight: 10 }
+        - { identifier: notes, name: Notes, url: /en/notes/, weight: 12 }
         - { identifier: series, name: Series, url: /en/series/, weight: 15 }
         - { identifier: tags, name: Tags, url: /en/tags/, weight: 20 }
         - { identifier: search, name: Search, url: /en/search/, weight: 30 }

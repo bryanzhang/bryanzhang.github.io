@@ -1,0 +1,117 @@
+# English titles and one-line summaries for the (Chinese) notes, used by /en/notes/.
+topics:
+  "LLM 推理": "LLM inference"
+  "训练与分布式": "Training and distributed systems"
+  "搜索推荐与检索": "Search, recommendation and retrieval"
+  "系统与性能": "Systems and performance"
+  "模型与算法": "Models and algorithms"
+
+notes:
+  # LLM inference
+  orca:
+    title: "ORCA: A Distributed Serving System for Transformer-Based Generative Models"
+    summary: "Iteration-level scheduling and selective batching, the ideas behind continuous batching; the worker layout and the FCFS scheduler."
+  vattention:
+    title: "vAttention: Dynamic Memory Management for Serving LLMs without PagedAttention"
+    summary: "What PagedAttention's non-contiguous KV cache costs, and how vAttention keeps the cache contiguous in virtual memory and maps physical memory on demand."
+  medusa:
+    title: "Medusa: Simple LLM Inference Acceleration Framework with Multiple Decoding Heads"
+    summary: "Extra decoding heads plus tree attention instead of a separate draft model; Medusa-1 versus Medusa-2 training."
+  mooncake:
+    title: "Mooncake: A KVCache-centric Disaggregated Architecture for LLM Serving"
+    summary: "Prefill/decode disaggregation under TTFT and TBT SLOs: chunked pipeline-parallel prefill, layer-wise prefill, cache-aware scheduling and early rejection."
+  gptq-autogptq:
+    title: "GPTQ, and Trying AutoGPTQ"
+    summary: "How GPTQ makes OBQ practical for large models, plus a perplexity and generation-speed check of a 4-bit 7B model on a V100."
+  flashattention:
+    title: "FlashAttention: Fast and Memory-Efficient Exact Attention with IO-Awareness"
+    summary: "Tiling to cut HBM-SRAM traffic, the rescaled softmax that makes it possible, and recomputation in the backward pass."
+  mini-sglang-source:
+    title: "Reading the Mini-SGLang Source Code"
+    summary: "A hand-read walkthrough of SGLang's compact reference implementation: entry point and frontend, backend processes, the engine, and the prefill, decode and cache managers."
+
+  # Training and distributed systems
+  byteps:
+    title: "BytePS: A Unified Architecture for Accelerating Distributed DNN Training in Heterogeneous GPU/CPU Clusters"
+    summary: "Why a parameter-server design that uses spare CPUs can beat all-reduce, the bandwidth split between server types (my derivation differs from the paper's), and intra-machine aggregation."
+  dlrm-hardware-software-codesign:
+    title: "Software-Hardware Co-design for Fast and Scalable Training of Deep Learning Recommendation Models"
+    summary: "Meta's Neo and ZionEX, the design TorchRec follows: 4D parallelism for embedding tables, fused embedding kernels, and HBM/DRAM/SSD tiers."
+  gpipe:
+    title: "GPipe: Efficient Training of Giant Neural Networks Using Pipeline Parallelism"
+    summary: "Micro-batch pipelining, re-materialization, and the bubble overhead."
+  megatron-lm:
+    title: "Megatron-LM: Training Multi-Billion Parameter Language Models Using Model Parallelism"
+    summary: "Intra-layer tensor parallelism for transformers with two all-reduces per layer, and the LayerNorm placement change for large BERT models."
+  pipedream:
+    title: "PipeDream: Generalized Pipeline Parallelism for DNN Training"
+    summary: "Profiling-driven stage partitioning by dynamic programming, replicated stages, 1F1B scheduling and weight stashing."
+  ray:
+    title: "Ray: A Distributed Framework for Emerging AI Applications"
+    summary: "Tasks and actors in one framework, a computation graph with stateful edges for lineage-based recovery, and the split between application and system layers."
+  reducing-activation-recomputation:
+    title: "Reducing Activation Recomputation in Large Transformer Models"
+    summary: "Sequence parallelism and selective recomputation: activation memory per layer under tensor and pipeline parallelism, and what is worth recomputing."
+  zero-infinity:
+    title: "ZeRO-Infinity: Breaking the GPU Memory Wall for Extreme Scale Deep Learning"
+    summary: "Offloading model states to CPU memory and NVMe, bandwidth-centric partitioning, overlapping transfers, and the offload engine."
+
+  # Search, recommendation and retrieval
+  bernoulli-streaming-ml:
+    title: "Bernoulli: An Industrial Streaming System for Machine Learning with Structured Designs"
+    summary: "A streaming ML pipeline that saves compute and storage by exploiting the structure of data, samples, training and serving."
+  differentiable-search-index:
+    title: "Transformer Memory as a Differentiable Search Index"
+    summary: "Using a sequence-to-sequence model as the index: indexing strategies, document representations and docid schemes."
+  din:
+    title: "Deep Interest Network for Click-Through Rate Prediction"
+    summary: "Local attention over user behaviors, mini-batch aware regularization, and the Dice activation."
+  facebook-embedding-based-retrieval:
+    title: "Embedding-based Retrieval in Facebook Search"
+    summary: "Unified two-tower embeddings, choosing positives and negatives, serving through inverted-index ANN, and ANN tuning lessons."
+  inverted-index-compression:
+    title: "Inverted Index Compression and Query Processing with Optimized Document Ordering"
+    summary: "NewPFD and OptPFD, and how docID reordering shrinks the index."
+  lucene-pforutil:
+    title: "The PForUtil Encoding in Lucene 9.9"
+    summary: "How Lucene packs postings blocks: 128 integers, up to 7 exceptions, ForUtil bit packing, and decode and skip."
+  mmoe:
+    title: "Modeling Task Relationships in Multi-task Learning with Multi-gate Mixture-of-Experts"
+    summary: "MMoE: per-task gates over shared experts, compared with shared-bottom and single-gate MoE models."
+  ranknet-lambdarank-lambdamart:
+    title: "From RankNet to LambdaRank to LambdaMART: An Overview"
+    summary: "RankNet's pairwise loss, factoring the updates per query, and why NDCG-style metrics led to lambdas."
+  song-gpu-ann:
+    title: "SONG: Approximate Nearest Neighbor Search on GPU"
+    summary: "Graph-based ANN on GPUs: splitting the search into stages, fixed-degree graphs, shared memory, Bloom-filter visited sets and bounded heaps."
+
+  # Systems and performance
+  dgemm-fermi:
+    title: "Fast Implementation of DGEMM on Fermi GPU"
+    summary: "Choosing blocking parameters from a GPU performance model, then 128-bit loads, double buffering and instruction scheduling."
+  dremel-parquet:
+    title: "The Columnar Format in Dremel, Behind Parquet"
+    summary: "Repetition and definition levels for nested records, read while looking into the Parquet format."
+  interleaving-coroutines-index-joins:
+    title: "Interleaving with Coroutines: A Practical Approach for Robust Index Joins"
+    summary: "Hiding cache misses in dictionary lookups (binary search, CSB+-trees) by interleaving stackless coroutines with prefetching, from SAP HANA."
+  simd-sort-multicore:
+    title: "Efficient Implementation of Sorting on Multi-Core SIMD CPU Architecture"
+    summary: "In-register sorting and bitonic merge networks with SIMD, the starting point of my bitonic sort experiment."
+  slabhash-source:
+    title: "Reading the SlabHash Source Code"
+    summary: "A dynamic GPU hash table: the benchmarks, the slab allocator, and warp-cooperative insert and search with ballot and shuffle."
+
+  # Models and algorithms
+  attention-is-all-you-need:
+    title: "Attention Is All You Need"
+    summary: "Reading the Transformer paper section by section."
+  instructgpt:
+    title: "Training Language Models to Follow Instructions with Human Feedback"
+    summary: "InstructGPT's supervised fine-tuning, reward model and PPO, and why labelers preferred the 1.3B model over 175B GPT-3."
+  llama:
+    title: "LLaMA: Open and Efficient Foundation Language Models"
+    summary: "Training smaller models on more tokens for cheaper inference, the public data mix, and RMSNorm, SwiGLU and RoPE."
+  lora:
+    title: "LoRA: Low-Rank Adaptation of Large Language Models"
+    summary: "Low-rank updates to the attention weights: far fewer trainable parameters, no extra inference latency, and the limitations."
