@@ -85,7 +85,17 @@ notes:
     title: "SONG: Approximate Nearest Neighbor Search on GPU"
     summary: "Graph-based ANN on GPUs: splitting the search into stages, fixed-degree graphs, shared memory, Bloom-filter visited sets and bounded heaps."
 
+  lucene-bkd-tree:
+    title: "The BKD Tree in Lucene 6.6.0"
+    summary: "Reading BKDReader: delta-encoded split values in the packed index tree, run-length compressed doc values, the N, 2N, 4N forest for in-memory indexes, and how it compares with geohash."
+  twitter-earlybird:
+    title: "Earlybird: Real-Time Search at Twitter"
+    summary: "Hash-table dictionaries, uncompressed postings arrays searched by binary search, one writable segment among twelve, and why separating archive and real-time indexes avoids segment merging."
+
   # Systems and performance
+  hazard-pointers:
+    title: "Lock-Free Data Structures with Hazard Pointers"
+    summary: "Notes on Andrei Alexandrescu's article: hazard pointers and per-thread retire lists for safe memory reclamation, how large the retire list should be, and making lookups wait-free."
   dgemm-fermi:
     title: "Fast Implementation of DGEMM on Fermi GPU"
     summary: "Choosing blocking parameters from a GPU performance model, then 128-bit loads, double buffering and instruction scheduling."
